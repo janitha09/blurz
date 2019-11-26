@@ -15,7 +15,7 @@ use blurz::bluetooth_gatt_descriptor::BluetoothGATTDescriptor as Descriptor;
 use blurz::bluetooth_gatt_service::BluetoothGATTService as Service;
 use blurz::bluetooth_session::BluetoothSession as Session;
 
-fn test2() -> Result<(), Box<Error>> {
+fn test2() -> Result<(), Box<dyn Error>> {
     let bt_session = &Session::create_session(None)?;
     let adapter: Adapter = try!(Adapter::init(bt_session));
     let session = try!(DiscoverySession::create_session(
@@ -40,9 +40,9 @@ fn test2() -> Result<(), Box<Error>> {
     let mut device: Device = Device::new(bt_session, "".to_string());
     'device_loop: for d in devices {
         device = Device::new(bt_session, d.clone());
-        println!("{} {:?}", device.get_id(), device.get_alias());
+        println!("id {} alias {:?}", device.get_id(), device.get_alias());
         let uuids = try!(device.get_uuids());
-        println!("{:?}", uuids);
+        println!("uuids {:?}", uuids);
         'uuid_loop: for uuid in uuids {
             if uuid == COLOR_PICKER_SERVICE_UUID || uuid == BATTERY_SERVICE_UUID {
                 println!("{:?} has a service!", device.get_alias());

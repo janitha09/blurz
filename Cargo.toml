@@ -15,3 +15,4 @@ path = "src/lib.rs"
 [dependencies]
 dbus = "0.6"
 hex = "0.3"
+log = "0.4.8"
